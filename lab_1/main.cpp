@@ -49,7 +49,10 @@ void Proccess(vector<string> &words, int max_size, vector<string> &str_list) {
 		}
 		// If the current word fits
 		else if (new_str.size() + (*first_word).size() <= max_size) {
-			new_str.append(*first_word);
+			if(new_str.size() + (*first_word).size() == max_size)
+				new_str.append(*first_word);
+			else
+				new_str.append(*first_word + " ");
 			words.erase(words.begin());
 		}
 		//	If the current word does not fit
