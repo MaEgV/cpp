@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 		Proccess(word_list, max_size, str_list);
 	}
 	
-	//	Print res
+	//    Print res
 	PrintAllString(str_list, "test1_out.txt");
 
 	return 0;
