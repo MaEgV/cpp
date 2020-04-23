@@ -32,7 +32,7 @@ void StandardBorders() {
 	glEnd();
 }
 
-void DrawLine(Vec Myline) {
+void DrawLine(Vec& Myline) {
 	glColor3f(red, green, blue);
 	glLineWidth(3);
 	glBegin(GL_LINES);
@@ -41,7 +41,7 @@ void DrawLine(Vec Myline) {
 	glEnd();
 }
 
-void DrawTrace(Vec Myline, Vec speed) {
+void DrawTrace(Vec& Myline, Vec& speed) {
 	glColor3f(red / 2, green / 2, blue / 2);
 	glBegin(GL_POLYGON);
 	glVertex2d(Myline.GetP1().Getx(), Myline.GetP1().Gety());
