@@ -18,18 +18,18 @@ public:
 	float Gety(void) { return y; };
 
 
-	void Setx(float x1) { x = x1; };
-	void Sety(float y1) { y = y1; };
+	void RevX() { x = -x; };
+	void RevY() { y = -y; };
 
 
 	Point& operator += (Point rv) {
-		x += rv.Getx();
-		y += rv.Gety();
+		x += rv.x;
+		y += rv.y;
 		return *this;
 	}
 
 	const Point operator - (Point rv) {
-		return(Point(x - rv.Getx(), y - rv.Gety()));
+		return(Point(x - rv.x, y - rv.y));
 	}
 
 	const Point operator - () {
@@ -37,7 +37,7 @@ public:
 	}
 
 	const Point operator + (Point rv) {
-		return(Point(x + rv.Getx(), y + rv.Gety()));
+		return(Point(x + rv.x, y + rv.y));
 	}
 };
 
@@ -54,29 +54,29 @@ public:
 
 
 	void RevX() {
-		p1.Setx(-p1.Getx());
-		p2.Setx(-p2.Getx());
+		p1.RevX();
+		p2.RevX();
 	}
 	void RevY() {
-		p1.Sety(-p1.Gety());
-		p2.Sety(-p2.Gety());
+		p1.RevY();
+		p2.RevY();
 	}
 
 
 	Vec& operator += (Vec rv) {
-		p1 += rv.GetP1();
-		p2 += rv.GetP2();
+		p1 += rv.p1;
+		p2 += rv.p2;
 		return *this;
 	}
 
 	Vec& operator = (Vec rv) {
-		p1 = rv.GetP1();
-		p2 = rv.GetP2();
+		p1 = rv.p1;
+		p2 = rv.p2;
 		return *this;
 	}
 
 	const Vec operator - (Vec rv) {
-		return(Vec(p1 - rv.GetP1(), p2 - rv.GetP2()));
+		return(Vec(p1 - rv.p1, p2 - rv.p2));
 	}
 
 	const Vec operator - () {
@@ -84,7 +84,7 @@ public:
 	}
 
 	const Vec operator + (Vec rv) {
-		return(Vec(p1 + rv.GetP1(), p2 + rv.GetP2()));
+		return(Vec(p1 + rv.p1, p2 + rv.p2));
 	}
 };
 
