@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 class Point {
 private:
 	float x;
@@ -13,55 +14,78 @@ public:
 	Point() { x = 0, y = 0; };
 	Point(float x1, float y1) { x = x1, y = y1; };
 
+	void ReverseX() { x = -x; };
+	void ReverseY() { y = -y; };
 
-	float Getx(void) { return x; };
-	float Gety(void) { return y; };
+	int CmpY(Point rv) {
+		if (y <= rv.y)
+			return 1;
+		return 0;
+	}
 
+	int CmpX(Point rv) {
+		if (x <= rv.x)
+			return 1;
+		return 0;
+	}
 
-	void RevX() { x = -x; };
-	void RevY() { y = -y; };
+	void PutPoint() {
+		glVertex2d(x, y);
+	}
 
-
-	Point& operator += (Point rv) {
+	Point& operator += (Point& rv) {
 		x += rv.x;
-		y += rv.x;
+		y += rv.y;
 		return *this;
 	}
 
-	const Point operator - (Point rv) {
+	Point operator - (Point rv) {
 		return(Point(x - rv.x, y - rv.y));
 	}
 
-	const Point operator - () {
+	Point operator * (int rv) {
+		return Point(x * rv, y * rv);
+	}
+
+	Point operator - () {
 		return(Point(-x, -y));
 	}
 
-	const Point operator + (Point rv) {
-		return(Point(x + rv.Getx(), y + rv.Gety()));
+	Point operator + (Point& rv) {
+		return(Point(x + rv.x, y + rv.y));
 	}
 };
 
+
 class Vec {
-private:
+protected:
 	Point p1;
 	Point p2;
+
 public:
 	Vec(Point a, Point b) { p1 = a, p2 = b; };
 	
-	
-	Point GetP1() { return p1; };
-	Point GetP2() { return p2; };
-
-
-	void RevX() {
-		p1.RevX();
-		p2.RevX();
-	}
-	void RevY() {
-		p1.RevY();
-		p2.RevY();
+	void ReverseX() {
+		p1.ReverseX();
+		p2.ReverseX();
 	}
 
+	void ReverseY() {
+		p1.ReverseY();
+		p2.ReverseY();
+	}
+
+	int CheckY(Point& rv) {
+		if (p1.CmpY(rv) || p2.CmpY(rv))
+			return 1;
+		return 0;
+	}
+
+	int CheckX(Point& rv) {
+		if (p1.CmpX(rv) || p2.CmpX(rv))
+			return 1;
+		return 0;
+	}
 
 	Vec& operator += (Vec rv) {
 		p1 += rv.p1;
@@ -88,10 +112,19 @@ public:
 	}
 };
 
+
+class Cut : public Vec {
+public:
+	Cut(Point a, Point b) : Vec(a, b) {};
+
+	void StandardBorders();
+	void DrawLine();
+	void DrawTrace(Cut& speed);
+	void ChekPos(Cut& speed);
+};
+
+
+void renderScene();
 void changeSize(int w, int h); // controlling the proportions of the window
-
-void renderScene(void); // the render function
-
 void processNormalKeys(unsigned char key, int x, int y); // esc
-
 void processSpecialKeys(int key, int x, int y); // (f1, f2, f3)colors, (up, down,left, right)speed control
