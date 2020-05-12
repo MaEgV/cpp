@@ -24,8 +24,8 @@ void processNormalKeys(unsigned char key, int x, int y) {
 }
 
 
-void init(int argc, char** argv, mouse_func proccessMouse, render_func renderScene, render_func idl) {
-	glutInit(&argc, argv);
+void init(int mode, mouse_func proccessMouse, render_func renderScene, render_func idl) {
+	glutInit(0, NULL);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(700, 600);
