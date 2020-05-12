@@ -10,7 +10,7 @@ typedef void(*render_func)();
 
 void draw_string(std::string& str);
 
-void init(int argc, char** argv, mouse_func proccessMouse, render_func renderScene, render_func idl);
+void init(int mode, mouse_func proccessMouse, render_func renderScene, render_func idl);
 
 void new_window(int argc, char** argv, mouse_func proccessMouse, render_func renderScene);
 
