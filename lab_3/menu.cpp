@@ -9,7 +9,7 @@ void launch_menu(int argc, char** argv, string& structure) {
 }
 
 void draw_string(std::string& str){
-    for (auto sym = str.begin(); sym < str.end(); sym++) {
+    for (auto sym : str) {
         if (*sym == '<') // Dialogue
             return;
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *sym);
@@ -120,7 +120,7 @@ void menu::draw_name(menu* ptr) {
 }
 
 bool menu:: search_ans(string& s) {
-    for (auto i = this->data.begin(); i < this->data.end(); i++) {
+    for (auto i : this->data) {
         if ((*i) == '<') {
             for (auto j = i; j < this->data.end(); j++) {
                 if ((*j) == '>') {
