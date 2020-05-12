@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void launch_menu(int argc, char** argv, string& structure); // Main function of module
+void launch_menu(int mode, string& structure); // Main function of module
 
 void draw_string(std::string& str);
 
