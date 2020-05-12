@@ -2,9 +2,9 @@
 
 menu* m;
 
-void launch_menu(int argc, char** argv, string& structure) {
+void launch_menu(int mode, string& structure) {
     m = text_tree(structure).create_tree();
-    init(argc, argv, proccessMouse, renderScene, renderScene);
+    init(mode, proccessMouse, renderScene, renderScene);
     glutMainLoop();
 }
 
