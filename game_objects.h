@@ -13,6 +13,13 @@ enum figure_types{
 	CIRCLE
 };
 
+enum object_types {
+	BALL,
+	RACKET,
+	BONUS
+	//etc
+};
+
 class object_stack {
 private:
 	vector<object&> stack;
@@ -27,7 +34,7 @@ public:
 
 class bonus : public moving_objects {
 private:
-	void collision(object& a) override { a.action(this); }
+	virtual void collision(object& a) override { a.action(this); }
 
 public:
 	bonus();
@@ -36,9 +43,8 @@ public:
 		fig.draw();
 	}
 
-	void action(racket* r) override;
-	void action(ball* r) override;
-	void action(bonus* r) override;
+	void action(object& a) override;
+
 };
 
 
@@ -55,15 +61,14 @@ public:
 		fig.draw();
 	}
 
-	void action(racket* r) override;
-	void action(ball* r) override;
-	void action(bonus* r) override;
+	void action(object& a) override;
+
 };
 
 
 class ball : public moving_objects {
 private:
-	void collision(object& a) override { a.action(this); }
+	virtual void collision(object& a) override { a.action(this); }
 
 public:
 	ball(point& center, vec speed) {
@@ -76,15 +81,14 @@ public:
 
 	void reflection();
 
-	void action(racket* r) override;
-	void action(ball* r) override;
-	void action(bonus* r) override;
+	void action(object& a) override;
+
 };
 
 
 class racket : public moving_objects {
 protected:
-	void collision(object& a) override { a.action(this); }
+	virtual void collision(object& a) override { a.action(this); }
 
 public:
 	racket(point& start_pos) {
@@ -96,25 +100,7 @@ public:
 		fig.draw();
 	}
 
-	void action(racket* r) override;
-	void action(ball* r) override;
-	void action(bonus* r) override;
-};
-
-
-class object {
-protected:
-	figure fig;
-
-	virtual void draw_object() = 0;
-
-	object() {}
-
-public:
-	// different interactions between objects
-	virtual void action(ball* a) = 0;
-	virtual void action(racket* a) = 0;
-	virtual void action(bonus* a) = 0;
+	void action(object& a) override;
 
 };
 
@@ -128,11 +114,27 @@ public:
 		fig = figure(center, POLYGON, vec(center, center + point(50, 50)));
 	}
 
-	void draw_object() override{
+	void draw_object() override {
 		fig.draw();
 	}
 
-	void action(ball* r) override;  // can only be affected by the ball
+	void action(object& a) override;
+};
+
+
+class object {
+protected:
+	figure fig;
+	object_types type;
+
+	virtual void draw_object() = 0;
+
+	object() {}
+
+public:
+	// different interactions between objects
+	virtual void action(object& a) = 0;
+
 };
 
 
