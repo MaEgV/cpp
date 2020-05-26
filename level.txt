@@ -1,0 +1,5 @@
+Limits(500, 600, 3)
+Racket(1, 1)
+Ball(2, 1)
+Blocks(40)
+Bonuses(4, 1, 2)
