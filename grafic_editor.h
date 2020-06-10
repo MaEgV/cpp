@@ -3,29 +3,19 @@
 
 #include "system.h"
 #include "matrix.h"
-
-
-class cursor_mode {
-private:
-
-
-public:
-	int size;
-
-	color_type color;
-
-	virtual void draw(int x, int y) = 0;
-
-	virtual void mouse_position(int x, int y) = 0;  // Обработка движений мыши, учитывая нажатые кнопки
-
-	virtual void set_color(color_type c) = 0;
-
-	virtual void change_size(int change) = 0;  // changing with button ('-'/'+')
-
-};
-
+#include "brush.h"
+#include "eraser.h"
+#include "primitives.h"
 
 class editor_launcher : public draw_system {
+private:
+	brush* brush_mode = new brush;
+	eraser* eraser_mode = new eraser;
+	polygon* polygon_mode = new polygon;
+	line* line_mode = new line;
+	circle* circle_mode = new circle;
+
+	cursor_mode* current_mode = brush_mode;
 public:
 	editor_launcher(string file_name);
 
@@ -44,74 +34,5 @@ public:
 	void keys(int key);
 
 };
-
-
-class main_brush : public cursor_mode {
-public:
-	virtual void change_size(int change) override;  // changing with button ('-'/'+')
-
-	void draw(int x, int y) override;
-
-	void mouse_position(int x, int y) override;
-
-};
-
-
-class brush : public main_brush {
-public:
-	brush();
-
-	void set_color(color_type c) override;
-	
-};
-
-
-class eraser : public main_brush {
-public:
-	eraser();
-
-	void set_color(color_type c) override {};
-
-};
-
-
-class primitives : public cursor_mode {
-public:
-	bool flag = false;
-	vector<int>p1{ 0, 0 };
-	vector<int>p2{ 0, 0 };
-
-	void set_color(color_type c);
-
-	void mouse_position(int x, int y);
-
-	void change_size(int change) override {};
-
-};
-
-
-class polygon : public primitives {
-public:
-	polygon();
-
-	void draw(int x, int y) override;
-};
-
-
-class line : public primitives {
-public:
-	line();
-
-	void draw(int x, int y) override;
-};
-
-
-class circle : public primitives {
-public:
-	circle();
-
-	void draw(int x, int y) override;
-};
-
 
 #endif // ! GRAFIC_EDITOR
