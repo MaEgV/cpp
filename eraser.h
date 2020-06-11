@@ -6,7 +6,7 @@
 
 class eraser : public simple_brush {
 public:
-	eraser();
+	eraser() { size = 4; }
 
 	void set_color(color_type c) override {};
 
